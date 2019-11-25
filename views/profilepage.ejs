@@ -1,0 +1,103 @@
+<header>
+  <% include ./partials/headera %>
+</header>
+<div class="push"></div>
+<div class="container">
+  <h5 class="mt-4">Profile Page</h5>
+  <p class="lead mb-3">Welcome <%= name %></p>
+  <p>
+    <i class="far fa-calendar-alt mr-2 "></i> Date Registered: <%=
+    moment(date).format("MMM [/]Do [/] YYYY") %>
+  </p>
+  <p>
+    <i class="fas fa-list-ol mr-2"></i> You've uploaded <%= artifacts %>
+    artefacts!
+  </p>
+  <div class="push"></div>
+  <!-- Change/Update password modal -->
+  <%if (email != null){%> <% include ./partials/messages %>
+  <button
+    data-toggle="modal"
+    data-target="#changepassword"
+    class="btn btn-primary ml-2 mt-4 editbtn"
+  >
+    <a>Change Password</a>
+  </button>
+  <%}%>
+
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="changepassword"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="modalpassword"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalpassword">
+            Update Password
+          </h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form method="POST" action="/user/profile">
+            <div class="form-group">
+              <label>Old Password</label>
+              <input
+                type="password"
+                class="form-control"
+                name="oldpassword"
+                placeholder="Enter old password"
+              />
+            </div>
+            <div class="form-group">
+              <label>New Password</label>
+              <input
+                type="password"
+                class="form-control"
+                name="newpassword"
+                placeholder="Enter new password"
+              />
+            </div>
+            <div class="form-group">
+              <label>Confirm Password</label>
+              <input
+                type="password"
+                class="form-control"
+                name="confirmpassword"
+                placeholder="Confirm password"
+              />
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+              >
+                Close
+              </button>
+              <button type="submit" class="btn btn-primary">
+                Save changes
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="push"></div>
+<footer>
+  <% include ./partials/footer %>
+</footer>

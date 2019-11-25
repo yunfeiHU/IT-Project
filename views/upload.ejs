@@ -1,0 +1,57 @@
+<header>
+  <% include ./partials/headera %>
+</header>
+<div class="row mt-5">
+  <div class="col-md-6 m-auto">
+    <h1 class="text-center display-4 my-4">Upload your artifact</h1>
+    <% include ./partials/messages %>
+    <form action="/file/upload" method="POST" enctype="multipart/form-data">
+      <div class="custom-file mb-3">
+        <label>Your image</label>
+        <input
+          type="file"
+          name="file"
+          id="file"
+          class="custom-file-input"
+          placeholder="Choose your file"
+        />
+        <label for="file" class="custom-file-label">
+          Choose file ...
+        </label>
+      </div>
+      <div class="form-group">
+        <label>Name</label>
+        <input
+          type="text"
+          name="name"
+          class="form-control"
+          placeholder="Enter Name"
+        />
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        <input
+          type="text"
+          name="description"
+          class="form-control"
+          placeholder="description"
+        />
+      </div>
+      <div class="form-group form-check">
+        <input
+          type="checkbox"
+          class="form-check-input"
+          id="exampleCheck1"
+          name="checkbox"
+        />
+        <label class="form-check-label" for="exampleCheck1"
+          ><i class="far fa-eye mr-2"></i>Make as public</label
+        >
+      </div>
+      <input type="submit" value="submit" class="btn btn-primary btn-block" />
+    </form>
+  </div>
+</div>
+<footer>
+  <% include ./partials/footer %>
+</footer>

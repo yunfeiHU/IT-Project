@@ -1,0 +1,25 @@
+.fa-heartbeat {
+  color: rgb(215, 82, 104);
+}
+
+.fa-heart {
+  color: rgb(228, 66, 93);
+  font-size: 1.2rem;
+}
+
+p {
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+.push {
+  margin-bottom: 80px;
+}
+
+.push-40 {
+  margin-bottom: 40px;
+}
+
+.push-20 {
+  margin-bottom: 20px;
+}

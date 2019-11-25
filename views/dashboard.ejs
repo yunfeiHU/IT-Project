@@ -1,0 +1,460 @@
+<header>
+  <% include ./partials/headera %>
+</header>
+<div class="push"></div>
+<div class="container">
+  <h5 class="mt-4">Dashboard</h5>
+  <p class="lead mb-3">Welcome <%= name %></p>
+  <a href="/file/upload">
+    <img
+      src="/image/addimage.png"
+      alt="photo"
+      style="width: 100px; height: 100px;"
+    />
+  </a>
+</div>
+
+<div class="push-40"></div>
+
+<div class="container">
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+      <a
+        class="nav-link active"
+        id="home-tab"
+        data-toggle="tab"
+        href="#home"
+        role="tab"
+        aria-controls="home"
+        aria-selected="true"
+        >Images</a
+      >
+    </li>
+    <li class="nav-item">
+      <a
+        class="nav-link"
+        id="profile-tab"
+        data-toggle="tab"
+        href="#profile"
+        role="tab"
+        aria-controls="profile"
+        aria-selected="false"
+        >Videos</a
+      >
+    </li>
+    <li class="nav-item">
+      <a
+        class="nav-link"
+        id="contact-tab"
+        data-toggle="tab"
+        href="#contact"
+        role="tab"
+        aria-controls="contact"
+        aria-selected="false"
+        >Audios</a
+      >
+    </li>
+  </ul>
+  <div class="push-20"></div>
+  <div class="tab-content" id="myTabContent">
+    <div
+      class="tab-pane fade show active"
+      id="home"
+      role="tabpanel"
+      aria-labelledby="home-tab"
+    >
+      <div class="container">
+        <div class="row">
+          <% for (var i = 0; i < images.length; i++) { %>
+          <div class="col-md-4">
+            <div class="card" style="width: 18rem;">
+              <img
+                src="<%= images[i].imageURL %>"
+                alt="image"
+                class="card-img-top"
+              />
+              <div class="card-body">
+                <div>
+                  <small class="float-left"
+                    ><%= moment(images[i].date).format("MMM [/]Do [/] YYYY")
+                    %></small
+                  >
+                  <%if(images[i].public){%>
+                  <i class="far fa-eye float-right"></i>
+                  <%}else{%>
+                  <i class="far fa-eye-slash float-right"></i>
+                  <%}%>
+                </div>
+                <br />
+                <h5 class="card-title"><%= images[i].name%></h5>
+                <p class="card-text"><%= images[i].description%></p>
+                <div class="d-flex">
+                  <form
+                    method="POST"
+                    action="/file/<%= images[i]._id %>?_method=DELETE"
+                  >
+                    <button class="btn btn-danger mt-4">Delete</button>
+                  </form>
+                  <!-- Button trigger modal -->
+                  <button
+                    data-toggle="modal"
+                    data-target="#myModal"
+                    class="btn btn-primary ml-2 mt-4 editbtn"
+                    title="<%= images[i]._id %>"
+                  >
+                    <a>Edit</a>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Modal -->
+          <div
+            class="modal fade"
+            id="myModal"
+            tabindex="-1"
+            role="dialog"
+            aria-labelledby="exampleModalCenterTitle"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalCenterTitle">
+                    Update information
+                  </h5>
+                  <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form method="POST" action="/file">
+                    <div class="form-group">
+                      <input
+                        hidden
+                        type="text"
+                        name="itemId"
+                        class="hiddenValue"
+                        value=""
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label for="name">Name</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="name"
+                        name="name"
+                        placeholder="Enter new name"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label for="description">Description</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="description"
+                        name="description"
+                        placeholder="Enter a new description"
+                      />
+                    </div>
+                    <div class="modal-footer">
+                      <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-dismiss="modal"
+                      >
+                        Close
+                      </button>
+                      <button type="submit" class="btn btn-primary">
+                        Save changes
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          <% } %>
+        </div>
+      </div>
+      <div class="push"></div>
+      <% include ./partials/dashboardpagination %>
+    </div>
+    <div
+      class="tab-pane fade"
+      id="profile"
+      role="tabpanel"
+      aria-labelledby="profile-tab"
+    >
+      <div class="container">
+        <div class="row">
+          <% for (var i = 0; i < videos.length; i++) { %>
+          <div class="col-md-4">
+            <div class="card" style="width: 18rem;">
+              <video
+                width="320"
+                height="240"
+                alt="video"
+                class="card-img-top"
+                controls
+              >
+                <source src="<%= videos[i].imageURL %>" type="video/mp4" />
+                <source src="<%= videos[i].imageURL %>" type="video/ogg" />
+                <source src="<%= videos[i].imageURL %>" type="video/mov" />
+                Your browser does not support the video tag.
+              </video>
+              <div class="card-body">
+                <div>
+                  <small class="float-left"
+                    ><%= moment(videos[i].date).format("MMM [/]Do [/] YYYY")
+                    %></small
+                  >
+                  <%if(videos[i].public){%>
+                  <i class="far fa-eye float-right"></i>
+                  <%}else{%>
+                  <i class="far fa-eye-slash float-right"></i>
+                  <%}%>
+                </div>
+                <br />
+                <h5 class="card-title"><%= videos[i].name%></h5>
+                <p class="card-text"><%= videos[i].description%></p>
+                <div class="d-flex">
+                  <form
+                    method="POST"
+                    action="/file/<%= videos[i]._id %>?_method=DELETE"
+                  >
+                    <button class="btn btn-danger mt-4">Delete</button>
+                  </form>
+                  <!-- Button trigger modal -->
+                  <button
+                    data-toggle="modal"
+                    data-target="#videoModal"
+                    class="btn btn-primary ml-2 mt-4 editbtn"
+                    title="<%= videos[i]._id %>"
+                  >
+                    <a>Edit</a>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Modal -->
+          <div
+            class="modal fade"
+            id="videoModal"
+            tabindex="-1"
+            role="dialog"
+            aria-labelledby="exampleModalCenterTitle"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalCenterTitle">
+                    Update information
+                  </h5>
+                  <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form method="POST" action="/file">
+                    <div class="form-group">
+                      <input
+                        hidden
+                        type="text"
+                        name="itemId"
+                        class="hiddenValue"
+                        value=""
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label for="name">Name</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="name"
+                        name="name"
+                        placeholder="Enter new name"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label for="description">Description</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="description"
+                        name="description"
+                        placeholder="Enter a new description"
+                      />
+                    </div>
+                    <div class="modal-footer">
+                      <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-dismiss="modal"
+                      >
+                        Close
+                      </button>
+                      <button type="submit" class="btn btn-primary">
+                        Save changes
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          <% } %>
+        </div>
+      </div>
+      <div class="push"></div>
+      <% include ./partials/dashboardpagination %>
+    </div>
+    <div
+      class="tab-pane fade"
+      id="contact"
+      role="tabpanel"
+      aria-labelledby="contact-tab"
+    >
+      <div class="container">
+        <div class="row">
+          <% for (var i = 0; i < audios.length; i++) { %>
+          <div class="col-md-4">
+            <div class="card" style="width: 18rem;">
+              <audio controls alt="audio" class="card-img-top">
+                <source src="<%= audios[i].imageURL %>" type="audio/ogg" />
+                <source src="<%= audios[i].imageURL %>" type="audio/mpeg" />
+                Your browser does not support the audio element.
+              </audio>
+              <div class="card-body">
+                <div>
+                  <small class="float-left"
+                    ><%= moment(audios[i].date).format("MMM [/]Do [/] YYYY")
+                    %></small
+                  >
+                  <%if(audios[i].public){%>
+                  <i class="far fa-eye float-right"></i>
+                  <%}else{%>
+                  <i class="far fa-eye-slash float-right"></i>
+                  <%}%>
+                </div>
+                <br />
+                <h5 class="card-title"><%= audios[i].name%></h5>
+                <p class="card-text"><%= audios[i].description%></p>
+                <div class="d-flex">
+                  <form
+                    method="POST"
+                    action="/file/<%= audios[i]._id %>?_method=DELETE"
+                  >
+                    <button class="btn btn-danger mt-4">Delete</button>
+                  </form>
+                  <!-- Button trigger modal -->
+                  <button
+                    data-toggle="modal"
+                    data-target="#audioModal"
+                    class="btn btn-primary ml-2 mt-4 editbtn"
+                    title="<%= audios[i]._id %>"
+                  >
+                    <a>Edit</a>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Modal -->
+          <div
+            class="modal fade"
+            id="audioModal"
+            tabindex="-1"
+            role="dialog"
+            aria-labelledby="exampleModalCenterTitle"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalCenterTitle">
+                    Update information
+                  </h5>
+                  <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form method="POST" action="/file">
+                    <div class="form-group">
+                      <input
+                        hidden
+                        type="text"
+                        name="itemId"
+                        class="hiddenValue"
+                        value=""
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label for="name">Name</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="name"
+                        name="name"
+                        placeholder="Enter new name"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label for="description">Description</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="description"
+                        name="description"
+                        placeholder="Enter a new description"
+                      />
+                    </div>
+                    <div class="modal-footer">
+                      <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-dismiss="modal"
+                      >
+                        Close
+                      </button>
+                      <button type="submit" class="btn btn-primary">
+                        Save changes
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          <% } %>
+        </div>
+      </div>
+      <div class="push"></div>
+      <% include ./partials/dashboardpagination %>
+    </div>
+  </div>
+</div>
+
+<div class="push"></div>
+<footer>
+  <% include ./partials/footer %>
+</footer>

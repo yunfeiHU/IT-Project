@@ -1,0 +1,152 @@
+<header>
+  <% include ./partials/headera %>
+</header>
+<div class="push"></div>
+<div class="container">
+  <h5 class="mt-4 text-center">Home</h5>
+  <p class="text-center">
+    LockedInside, a place you can truly enjoy with<br />Please login to manage
+    your family artifacts
+  </p>
+</div>
+
+<div class="push-40"></div>
+
+<div class="container">
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+      <a
+        class="nav-link active"
+        id="image-tab"
+        data-toggle="tab"
+        href="#image"
+        role="tab"
+        aria-controls="image"
+        aria-selected="true"
+        >Images</a
+      >
+    </li>
+    <li class="nav-item">
+      <a
+        class="nav-link"
+        id="video-tab"
+        data-toggle="tab"
+        href="#video"
+        role="tab"
+        aria-controls="video"
+        aria-selected="false"
+        >Videos</a
+      >
+    </li>
+    <li class="nav-item">
+      <a
+        class="nav-link"
+        id="audio-tab"
+        data-toggle="tab"
+        href="#audio"
+        role="tab"
+        aria-controls="audio"
+        aria-selected="false"
+        >Audios</a
+      >
+    </li>
+  </ul>
+  <div class="push-20"></div>
+  <div class="tab-content" id="myTabContent">
+    <div
+      class="tab-pane fade show active"
+      id="image"
+      role="tabpanel"
+      aria-labelledby="image-tab"
+    >
+      <div class="container">
+        <div class="row">
+          <% for (var i = 0; i < images.length; i++) { %>
+          <div class="col-md-4">
+            <div class="card" style="width: 18rem;">
+              <img
+                src="<%= images[i].imageURL %>"
+                alt="image"
+                class="card-img-top"
+              />
+              <div class="card-body">
+                <h5 class="card-title"><%= images[i].name%></h5>
+                <p class="card-text"><%= images[i].description%></p>
+              </div>
+            </div>
+          </div>
+          <% } %>
+        </div>
+      </div>
+      <div class="push"></div>
+      <%include ./partials/pagination %>
+    </div>
+    <div
+      class="tab-pane fade"
+      id="video"
+      role="tabpanel"
+      aria-labelledby="video-tab"
+    >
+      <div class="container">
+        <div class="row">
+          <% for (var i = 0; i < videos.length; i++) { %>
+          <div class="col-md-4">
+            <div class="card" style="width: 18rem;">
+              <video
+                width="320"
+                height="240"
+                alt="video"
+                class="card-img-top"
+                controls
+              >
+                <source src="<%= videos[i].imageURL %>" type="video/mp4" />
+                <source src="<%= videos[i].imageURL %>" type="video/ogg" />
+                Your browser does not support the video tag.
+              </video>
+              <div class="card-body">
+                <h5 class="card-title"><%= videos[i].name%></h5>
+                <p class="card-text"><%= videos[i].description%></p>
+              </div>
+            </div>
+          </div>
+          <% } %>
+        </div>
+      </div>
+      <div class="push"></div>
+      <%include ./partials/pagination %>
+    </div>
+    <div
+      class="tab-pane fade"
+      id="audio"
+      role="tabpanel"
+      aria-labelledby="audio-tab"
+    >
+      <div class="container">
+        <div class="row">
+          <% for (var i = 0; i < audios.length; i++) { %>
+          <div class="col-md-4">
+            <div class="card" style="width: 18rem;">
+              <audio controls alt="audio" class="card-img-top">
+                <source src="<%= audios[i].imageURL %>" type="audio/ogg" />
+                <source src="<%= audios[i].imageURL %>" type="audio/mpeg" />
+                Your browser does not support the audio element.
+              </audio>
+              <div class="card-body">
+                <h5 class="card-title"><%= audios[i].name%></h5>
+                <p class="card-text"><%= audios[i].description%></p>
+              </div>
+            </div>
+          </div>
+          <% } %>
+        </div>
+      </div>
+      <div class="push"></div>
+      <%include ./partials/pagination %>
+    </div>
+  </div>
+</div>
+
+<div class="push"></div>
+<footer>
+  <% include ./partials/footer %>
+</footer>
